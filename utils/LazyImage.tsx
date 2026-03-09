@@ -2,6 +2,7 @@
 
 import Loader from "@/components/Loader";
 import { Suspense, useEffect, useRef, useState } from "react";
+//import programmerImage from 'https://thumbs.dreamstime.com/b/ai-brain-409496331.jpg'
 
 type LazyImageProps = {
   src: string;
@@ -45,7 +46,7 @@ export default function LazyImage({ src, alt, width = 200, height = 200, classNa
       
       }}
     >
-      {visible && <img src={src} alt={alt} width={width} height={height} />}
+      {visible && <img className="object-cover h-full w-full" src={src}  alt={alt} width={width} height={height} />}
     </div>
     </Suspense>
   );
