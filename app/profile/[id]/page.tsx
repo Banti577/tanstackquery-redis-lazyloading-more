@@ -78,10 +78,12 @@ interface User {
   ssn: string;
   userAgent: string;
   crypto: Crypto;
-  role: "admin" | "user" | "moderator";
+  role: "admin" | "user" | "moderator"; 
 }
 
-
+interface UsersResponse {
+  users: User[];
+}
 
 
 export default async function ProfilePage({ params }: ProfilePageProps) {
@@ -89,16 +91,16 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
   const resolvedpar = await params;
   const { id } = resolvedpar;
 
-  const cached: string | null = await redis.get(`user`);
+  const cached: string | null = await redis.get(`user`) ;
   let user;
 
   if (cached) {
     user = JSON.parse(cached);
   } else {
     try {
-
+    
       const res = await fetch(`http://localhost:3000/api/user/${id}`);
-
+    
       user = await res.json();
 
     } catch (err) {
@@ -110,20 +112,20 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
   }
 
   return (
-    <div>
-      <Suspense fallback={<p>Loading users...</p>}>
-        {user && user.users && <div>
-          {user.users.map((item: User) => {
-            return (
-              <div key={item.id}>
-                {item.firstName}
-              </div>
-            )
-          })}
-        </div>}
+  <div>
+     <Suspense fallback={<p>Loading users...</p>}>
+    {user && user.users && <div>
+      {user.users.map((item: User) =>{
+        return (
+          <div key={item.id}>
+            {item.firstName}
+          </div>
+        )
+      })}
+      </div>}
       </Suspense>
-    </div>
-
+  </div>
+   
   );
 }
 
