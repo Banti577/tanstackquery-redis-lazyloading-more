@@ -5,6 +5,7 @@ var google_1 = require("next/font/google");
 require("./globals.css");
 var providers_1 = require("./providers");
 var SidBar_1 = require("../components/SidBar");
+var ThemeContext_1 = require("@/contexts/ThemeContext");
 // import Navbar from "@/components/Navbar";
 // import Footer from "@/components/Footer";
 var geistSans = google_1.Geist({
@@ -22,12 +23,13 @@ exports.metadata = {
 function RootLayout(_a) {
     var children = _a.children;
     return (React.createElement("html", { lang: "en" },
-        React.createElement("body", { className: geistSans.variable + " " + geistMono.variable + " antialiased" },
+        React.createElement("body", { className: " " + geistSans.variable + " " + geistMono.variable + " antialiased" },
             React.createElement(providers_1["default"], null,
-                React.createElement("div", { className: "flex h-screen w-full overflow-hidde" },
-                    React.createElement("div", { className: "w-[20%]" },
-                        React.createElement(SidBar_1["default"], null)),
-                    React.createElement("div", { className: "w-[80%] flex flex-1 flex-col overflow-hidden " },
-                        React.createElement("main", { className: "flex-1 overflow-y-auto p-3 bg-gray-100" }, children)))))));
+                React.createElement(ThemeContext_1["default"], null,
+                    React.createElement("div", { className: "flex h-screen w-full overflow-hidde " },
+                        React.createElement("div", { className: "w-[18%]" },
+                            React.createElement(SidBar_1["default"], null)),
+                        React.createElement("div", { className: "w-[82%] flex flex-1 flex-col overflow-hidden " },
+                            React.createElement("main", { className: "flex-1 overflow-y-auto p-3 bg-gray-100 " }, children))))))));
 }
 exports["default"] = RootLayout;

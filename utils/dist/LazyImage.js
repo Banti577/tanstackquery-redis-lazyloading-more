@@ -4,7 +4,7 @@ exports.__esModule = true;
 var Loader_1 = require("@/components/Loader");
 var react_1 = require("react");
 function LazyImage(_a) {
-    var src = _a.src, alt = _a.alt, _b = _a.width, width = _b === void 0 ? 200 : _b, _c = _a.height, height = _c === void 0 ? 200 : _c, className = _a.className;
+    var src = _a.src, alt = _a.alt, _b = _a.width, width = _b === void 0 ? 200 : _b, _c = _a.height, height = _c === void 0 ? 100 : _c, className = _a.className;
     var ref = react_1.useRef(null);
     var _d = react_1.useState(false), visible = _d[0], setVisible = _d[1];
     react_1.useEffect(function () {

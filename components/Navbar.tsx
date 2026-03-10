@@ -1,8 +1,10 @@
 import React from 'react'
 
 import Link from 'next/link'
+import { useTheme } from '@/contexts/ThemeContext'
 
 const Navbar = () => {
+
     return (
         <div className='flex justify-around items-center bg-[rgb(27_27_27)] text-[rgb(212_212_212)] p-2'>
 
@@ -22,7 +24,7 @@ const Navbar = () => {
                         <li className='mx-3'>Skills</li>
                     </Link>
                     <li className='mx-3'>Projects</li>
-                    <li className='mx-3'>Contact</li>
+                    <li className='mx-3'>theme change</li>
                 </ul>
 
             </div>

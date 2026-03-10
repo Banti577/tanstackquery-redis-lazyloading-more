@@ -1,8 +1,8 @@
 import { IoHome } from "react-icons/io5";
 import { MdOutlinePerson2 } from "react-icons/md";
-import { HiOutlineDesktopComputer } from "react-icons/hi";
 import { VscGithubProject } from "react-icons/vsc";
 import { IoIosContact } from "react-icons/io";
+
 
 export const SIDE_LINKS =[
     {
@@ -15,14 +15,9 @@ export const SIDE_LINKS =[
         path:'/aboutme',
         icon: MdOutlinePerson2,
     },
-          {
-        name: 'Experience',
-        path:'/skill',
-        icon: HiOutlineDesktopComputer,
-    },
       {
         name: 'Project',
-        path:'',
+        path:'/project',
         icon: VscGithubProject ,
     },
       {
@@ -30,11 +25,11 @@ export const SIDE_LINKS =[
         path:'/contact',
         icon: IoIosContact ,
     },
-      {
-        name: 'Lazy Loading',
-        path:'/about',
-        icon: IoIosContact ,
-    },
+    //   {
+    //     name: 'Lazy Loading',
+    //     path:'/about',
+    //     icon: IoIosContact ,
+    // },
     
     
 ]

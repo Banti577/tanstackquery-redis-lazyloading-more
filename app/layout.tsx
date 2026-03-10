@@ -4,6 +4,7 @@ import "./globals.css";
 import Providers from './providers'
 
 import SidBar from "../components/SidBar";
+import ThemeContext from "@/contexts/ThemeContext";
 // import Navbar from "@/components/Navbar";
 // import Footer from "@/components/Footer";
 
@@ -30,20 +31,24 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={` ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Providers>
-          <div className="flex h-screen w-full overflow-hidde">
-            <div className="w-[20%]">
-              <SidBar />
-            </div>
-            <div className="w-[80%] flex flex-1 flex-col overflow-hidden ">
-                 <main className="flex-1 overflow-y-auto p-3 bg-gray-100">
-                    {children}
-                </main>
-            </div>
+          <ThemeContext>
 
-          </div>
+
+            <div className="flex h-screen w-full overflow-hidde ">
+              <div className="w-[18%]">
+                <SidBar />
+              </div>
+              <div className="w-[82%] flex flex-1 flex-col overflow-hidden ">
+                <main className="flex-1 overflow-y-auto p-3 bg-gray-100 ">
+                  {children}
+                </main>
+              </div>
+
+            </div>
+          </ThemeContext>
 
         </Providers>
       </body>

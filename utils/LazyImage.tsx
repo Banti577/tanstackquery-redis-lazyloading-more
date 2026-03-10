@@ -12,7 +12,7 @@ type LazyImageProps = {
   className?: string;
 };
 
-export default function LazyImage({ src, alt, width = 200, height = 200, className }: LazyImageProps) {
+export default function LazyImage({ src, alt, width = 200, height = 100, className }: LazyImageProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
@@ -36,18 +36,18 @@ export default function LazyImage({ src, alt, width = 200, height = 200, classNa
   }, []);
 
   return (
- < Suspense fallback={<Loader />}>
-    <div
-      ref={ref}
-      className={className}
-      style={{
-        width,
-        height,
-      
-      }}
-    >
-      {visible && <img className="object-cover h-full w-full" src={src}  alt={alt} width={width} height={height} />}
-    </div>
+    < Suspense fallback={<Loader />}>
+      <div
+        ref={ref}
+        className={className}
+        style={{
+          width,
+          height,
+
+        }}
+      >
+        {visible && <img className="object-cover h-full w-full" src={src} alt={alt} width={width} height={height} />}
+      </div>
     </Suspense>
   );
 }
