@@ -5,18 +5,18 @@ import { useInView } from 'react-intersection-observer'
 const Experience = () => {
 
     interface theme {
-    themeName: string,
-    curr_BG: string,
-    curr_TEXT: string,
-}
+        themeName: string,
+        curr_BG: string,
+        curr_TEXT: string,
+    }
 
-interface themeI {
-    theme: theme
-}
+    interface themeI {
+        theme: theme
+    }
 
-     const { theme } = useTheme() as themeI;
-       const { ref, inView } = useInView({
-        threshold: 0.2,
+    const { theme } = useTheme() as themeI;
+    const { ref, inView } = useInView({
+        threshold: 0.6,
         triggerOnce: true
     })
 
@@ -62,7 +62,7 @@ interface themeI {
                                         </h3>
 
                                         <p className="text-[#fa5b0f]">
-                                          Trainee Software Engineer
+                                            Trainee Software Engineer
                                         </p>
 
                                         <p>
@@ -87,17 +87,17 @@ interface themeI {
                                         </time>
 
                                         <h3 className={`text-2xl font-bold  ${theme.curr_TEXT}`}>
-                                           Ram Antivirus Pvt. Ltd.
+                                            Ram Antivirus Pvt. Ltd.
                                         </h3>
 
                                         <p className="text-[#fa5b0f]">
-                                          internship
+                                            internship
                                         </p>
 
                                         <p>
                                             Created dynamic & intractive user interfaces,
                                         </p>
-                                        
+
 
                                     </div>
 

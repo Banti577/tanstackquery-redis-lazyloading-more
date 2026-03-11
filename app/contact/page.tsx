@@ -1,18 +1,22 @@
 'use client'
+
+import emailjs from '@emailjs/browser';
+
+import { ChangeEvent, FormEvent, useState, useRef } from 'react';
+
 import { useTheme } from '@/contexts/ThemeContext';
-import { useState } from 'react';
+
+interface ThemeObject {
+    curr_BG: string;
+    curr_TEXT: string;
+}
+
+interface ThemeContextProps {
+    theme: ThemeObject;
+    setTheme: (theme: string) => void;
+}
 
 const Contact = () => {
-
-    interface ThemeObject {
-        curr_BG: string;
-        curr_TEXT: string;
-    }
-
-    interface ThemeContextProps {
-        theme: ThemeObject;
-        setTheme: (theme: string) => void;
-    }
 
     const { theme } = useTheme() as ThemeContextProps;
     const [formData, setFormData] = useState({
@@ -21,39 +25,80 @@ const Contact = () => {
         message: '',
     });
 
-    const handleChange = () => {
-        // setFormData({ ...formData, [e.target.name]: e.target.value });
+    const form = useRef<HTMLFormElement>(null);
+
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+
+        const { value, name } = e.target;
+        setFormData({ ...formData, [name]: value });
     };
 
-    const handleSubmit = () => {
-        // e.preventDefault();
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
 
-        console.log('Form submitted:', formData);
-        alert('Message sent!');
-        setFormData({ name: '', email: '', message: '' });
+        const response = await fetch('/api/contact', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+        })
+
+        if (response.status == 201) {
+            alert('Data Added We will connect shortly')
+
+        }
+
+        if (form.current) {
+            emailjs.sendForm(
+                process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID ?? '',
+                process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID ?? '',
+
+                form.current,
+                {
+                    publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY ?? '',
+                },
+            )
+                .then(
+                    () => {
+                        alert('Message sent successfully!');
+                    },
+                    (error) => {
+                        console.error('FAILED...', error.text);
+                        alert('Failed to send message, please try again later.');
+                    }
+                );
+        }
+        setFormData({
+
+            name: '',
+            email: '',
+            message: '',
+
+        })
     };
 
     return (
         <section className={` flex items-center justify-center p-4`}>
-
 
             <div className={` ${theme.curr_BG} w-[40%] p-6 border border-gray-200 rounded-lg shadow-sm`}>
                 <div className="space-y-4">
 
                     <div>
                         <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wider">Name</h2>
-                        <p className="text-lg font-medium text-gray-900">Banti Patel</p>
+                        <p className={`text-lg font-medium ${theme.curr_TEXT}`}>Banti Patel</p>
                     </div>
 
                     <div>
                         <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wider">Mobile</h2>
-                        <p className="text-gray-700">+91 9770606527</p>
+                        <p className={`text-lg font-medium ${theme.curr_TEXT}`}>+91 9770606527</p>
                     </div>
 
 
                     <div>
                         <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wider">Address</h2>
-                        <p className="text-gray-700">Indore , MP</p>
+                        <p className={`text-lg font-medium ${theme.curr_TEXT}`}>Indore , MP</p>
                     </div>
 
 
@@ -71,7 +116,7 @@ const Contact = () => {
                     <p className={` ${theme.curr_TEXT} mt-2`}>Fill out the form below to send us a message.</p>
                 </div>
 
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <form ref={form} onSubmit={handleSubmit} className="space-y-4">
                     <div>
                         <label htmlFor="name" className={` ${theme.curr_TEXT} block text-sm font-medium text-gray-700`}>
                             Full Name
@@ -112,7 +157,7 @@ const Contact = () => {
                             id="message"
                             name="message"
                             value={formData.message}
-                            onChange={handleChange}
+                            onChange={(e) => handleChange(e)}
                             placeholder="How can we help you?"
                             required
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md  focus:outline-none "

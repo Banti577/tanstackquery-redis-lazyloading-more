@@ -6,7 +6,7 @@ var react_intersection_observer_1 = require("react-intersection-observer");
 var Experience = function () {
     var theme = ThemeContext_1.useTheme().theme;
     var _a = react_intersection_observer_1.useInView({
-        threshold: 0.2,
+        threshold: 0.6,
         triggerOnce: true
     }), ref = _a.ref, inView = _a.inView;
     return (React.createElement("div", null,
